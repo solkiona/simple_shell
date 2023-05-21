@@ -266,4 +266,4 @@ $
 
 ## More information
 
-**simple_shell** is a simple shell unix command interpreter that is part of the ALXSWE low level programming module at ALXSWE School and is intended to emulate the basics **sh** shell. All the information given in this README is based on the **simple_shell** and **bash** man (1) pages.
+**simple_shell** is a simple shell unix command interpreter that is part of the ALXSWE low level programming module at ALXSWE Program and is intended to emulate the basics **sh** shell. All the information given in this README is based on the **simple_shell** and **bash** man (1) pages.
