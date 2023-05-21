@@ -1,124 +1,269 @@
-# Simple Shell Project
+# Simple Shell project 0x16.c - Simple Shell -
 
-**A simple Unix command line interpreter**
-![shell]
+This is a simple UNIX command interpreter based on bash and Sh.
 
-****
-## Table of contents
- - **What is the shell?**
- - **About this project**
- - **Essential Functionalities of the Simple Shell**
- - **File description**
- - **List of allowed functions and system calls for this project**
- - **USAGE**
- - **Example of Usage**
- - **Bugs**
- - **TEAM**
- ****
+## Overview
 
-## What is the shell?
-The shell is a program that takes commands from the keyboard via the terminal, and gives them to the operating system to perform.\
-**To better understand how the shell actually works, you can read our [Article].**
+**Simple Shell** is a sh-compatible command language interpreter that executes commands read from the standard input or from a file.
 
-## About this project
-This project is a simple version of the linux shell made for [Holberton School] taking part of the "Low-level programming & Algorithm - Linux and Unix system programming" projects.\
-It is created using the **C programming Language** and it can do many functionalities that a real shell does.
+### Invocation
 
-## Essential Functionalities of the Simple Shell:
-> Displays a prompt "#cisfun$ " and waits for user input.\
-> Runs all commands of type "executable program" (ls and /bin/ls).\
-> Runs the following build_in commands: **exit**, **env**, **setenv** and **unsetenv**.\
-> Handles commands with arguments.\
-> Handles the PATH global variable.\
-> Handles The EOF (End Of File) condition.\
-> Handles the Ctrl + C signal -> It doesn't exit the shell
+Usage: **Simple Shell** 
+Simple Shell is started with the standard input connected to the terminal. To start, compile all .c located in this repository by using this command: 
+```
+gcc -Wall -Werror -Wextra -pedantic *.c -o Simple_shell
+./simple_Shell
+```
 
-## Files description
- - **AUTHORS** -> List of contributors to this repository
- - **man_1_simple_shell** -> Manual page for the simple_shell
- - **shell.h** -> Header file
- - **shell.c** -> main function
-	- **sig_handler** -> handles the Ctrl + C signal
-	- **_EOF** -> handles the End Of File condition
- - **string.c**
-	- **_putchar** -> prints a character
-	- **_puts** -> prints a string
-	- **_strlen** -> gives the length of a string
-	- **_strdup** -> copies a string in a newly allocated memory
-	- **concat_all** -> concatenates 3 strings in a newly allocated memory
- - **line_exec.c**
-	- **splitstring** -> splits a string into an array of words
-	- **execute** -> executes a command using execve
-	- **realloc** -> reallocates a memory block
-	- **freearv** -> frees a 2 dimensional array
- - **linkpath.c**
-	- **_getenv** -> returns the value of a global variable
-	- **add_node_end** -> adds a node in a singly linked list
-	- **linkpath** -> creates a singly linked list for PATH directories
-	- **_which** -> finds the pathname of a command
-	- **free_list** -> frees the linked list of PATH value
- - **checkbuild.c**
-	- **checkbuild** -> checks if a command is a build-in command
- - **buildin.c**
-	- **exitt** -> handles the exit buildin command
-	- **_atoi** -> converts a string into an integer
-	- **env** -> prints the current environment
-	- **_setenv** -> Initialize a new global variable, or modify an existing one
-	- **_unsetenv** -> remove a global variable
+**Simple Shell** is allowed to be invoked interactively and non-interactively. If **simple_shell** is invoked with standard input not connected to a terminal, it reads and executes received commands in order.
 
-****
-## List of allowed functions and system calls for this project
- - access (man 2 access)
- - chdir (man 2 chdir)
- - close (man 2 close)
- - closedir (man 3 closedir)
- - execve (man 2 execve)
- - exit (man 3 exit)
- - _exit (man 2 _exit)
- - fflush (man 3 fflush)
- - fork (man 2 fork)
- - free (man 3 free)
- - getcwd (man 3 getcwd)
- - getline (man 3 getline)
- - isatty (man 3 isatty)
- - kill (man 2 kill)
- - malloc (man 3 malloc)
- - open (man 2 open)
- - opendir (man 3 opendir)
- - perror (man 3 perror)
- - read (man 2 read)
- - readdir (man 3 readdir)
- - signal (man 2 signal)
- - stat (__xstat) (man 2 stat)
- - lstat (__lxstat) (man 2 lstat)
- - fstat (__fxstat) (man 2 fstat)
- - strtok (man 3 strtok)
- - wait (man 2 wait)
- - waitpid (man 2 waitpid)
- - wait3 (man 2 wait3)
- - wait4 (man 2 wait4)
- - write (man 2 write)
-****
+Example:
+```
+$ echo "echo 'ALXSWE'" | ./simple_shell
+'ALXSWE'
+$
+```
 
-## Example of Usage
-````
-ubunto@ubuntu:~/Bureau/simple_shell$ gcc -Wall -Wextra -Werror -pedantic *.c -o hsh
-ubunto@ubuntu:~/Bureau/simple_shell$ ./hsh
-#cisfun$ echo Hello, This is an example
-Hello, This is an example
-#cisfun$ ls
-README.md  checkbuild.c  line_exec.c  shell.c  string.c
-buildin.c  hsh		 linkpath.c   shell.h
-#cisfun$ ^C
-#cisfun$ ls -l
-total 52
--rw-r--r-- 1 ubunto ubunto  3067 Nov 26 04:22 README.md
--rw-r--r-- 1 ubunto ubunto  2183 Nov 24 16:17 buildin.c
--rw-r--r-- 1 ubunto ubunto   574 Nov 24 15:59 checkbuild.c
--rwxr-xr-x 1 ubunto ubunto 18144 Nov 26 04:22 hsh
--rw-r--r-- 1 ubunto ubunto  2091 Nov 24 14:49 line_exec.c
--rw-r--r-- 1 ubunto ubunto  1926 Nov 24 14:30 linkpath.c
--rw-r--r-- 1 ubunto ubunto   951 Nov 24 16:09 shell.c
--rw-r--r-- 1 ubunto ubunto  1351 Nov 24 15:58 shell.h
--rw-r--r-- 1 ubunto ubunto  1727 Nov 24 14:30 string.c
-#cisfun$ exit
+When **simple_shell** is invoked with standard input connected to a terminal (determined by isatty(3), the interactive mode is opened. **simple_shell** Will be using the following prompt `^-^ `.
+
+Example:
+```
+$./simple_shell
+^-^
+```
+
+If a command line argument is invoked, **simple_shell** will take that first argument as a file from which to read commands.
+
+Example:
+```
+$ cat text
+echo 'ALXSWE'
+$ ./simple_shell text
+'ALXSWE'
+$
+```
+
+### Environment
+
+Upon invocation, **simple_shell** receives and copies the environment of the parent process in which it was executed. This environment is an array of *name-value* strings describing variables in the format *NAME=VALUE*. A few key environmental variables are:
+
+#### HOME
+The home directory of the current user and the default directory argument for the **cd** builtin command.
+
+```
+$ echo "echo $HOME" | ./simple_shell
+/home/vagrant
+```
+
+#### PWD
+The current working directory as set by the **cd** command.
+
+```
+$ echo "echo $PWD" | ./simple_shell
+/home/vagrant/ALXSWE/simple_shell
+```
+
+#### OLDPWD
+The previous working directory as set by the **cd** command.
+
+```
+$ echo "echo $OLDPWD" | ./simple_Shell
+/home/vagrant/ALXSWE/bog-062019-test_suite
+```
+
+#### PATH
+A colon-separated list of directories in which the shell looks for commands. A null directory name in the path (represented by any of two adjacent colons, an initial colon, or a trailing colon) indicates the current directory.
+
+```
+$ echo "echo $PATH" | ./simple_shell
+/home/vagrant/.cargo/bin:/home/vagrant/.local/bin:/home/vagrant/.rbenv/plugins/ruby-build/bin:/home/vagrant/.rbenv/shims:/home/vagrant/.rbenv/bin:/home/vagrant/.nvm/versions/node/v10.15.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/vagrant/.cargo/bin:/home/vagrant/workflow:/home/vagrant/.local/bin
+```
+
+### Command Execution
+
+After receiving a command, **simple_shell** tokenizes it into words using `" "` as a delimiter. The first word is considered the command and all remaining words are considered arguments to that command. **simple_shell** then proceeds with the following actions:
+1. If the first character of the command is neither a slash (`\`) nor dot (`.`), the shell searches for it in the list of shell builtins. If there exists a builtin by that name, the builtin is invoked.
+2. If the first character of the command is none of a slash (`\`), dot (`.`), nor builtin, **simple_shell** searches each element of the **PATH** environmental variable for a directory containing an executable file by that name.
+3. If the first character of the command is a slash (`\`) or dot (`.`) or either of the above searches was successful, the shell executes the named program with any remaining given arguments in a separate execution environment.
+
+### Exit Status 
+
+**simple_shell** returns the exit status of the last command executed, with zero indicating success and non-zero indicating failure.
+If a command is not found, the return status is 127; if a command is found but is not executable, the return status is 126.
+All builtins return zero on success and one or two on incorrect usage (indicated by a corresponding error message).
+
+### Signals
+
+While running in interactive mode, **simple_shell** ignores the keyboard input ctrl+c. Alternatively, an input of End-Of-File ctrl+d will exit the program.
+
+User hits ctrl+d in the foutrh command.
+```
+$ ./simple_shell
+^-^ ^C
+^-^ ^C
+^-^ ^C
+^-^
+```
+
+### Variable Replacement
+
+**simple_shell** interprets the `$` character for variable replacement.
+
+#### $ENV_VARIABLE
+`ENV_VARIABLE` is substituted with its value.
+
+Example:
+```
+$ echo "echo $PWD" | ./simple_shell
+/home/vagrant/ALXSWE/simple_shell
+```
+
+#### $?
+`?` is substitued with the return value of the last program executed.
+
+Example:
+```
+$ echo "echo $?" | ./simple_shell
+0
+```
+
+#### $$
+The second `$` is substitued with the current process ID.
+
+Example:
+```
+$ echo "echo $$" | ./simple_shell
+3855
+```
+
+### Comments
+
+**simple_shell** ignores all words and characters preceeded by a `#` character on a line.
+
+Example:
+```
+$ echo "echo 'ALXSWE' #this will be ignored!" | ./simple_shell
+'ALXSWE'
+```
+
+### Operators
+
+**simple_shell** specially interprets the following operator characters:
+
+#### ; - Command separator
+Commands separated by a `;` are executed sequentially.
+
+Example:
+```
+$ echo "echo 'hello' ; echo 'world'" | ./simple_shell
+'hello'
+'world'
+```
+
+#### && - AND logical operator
+`command1 && command2`: `command2` is executed if, and only if, `command1` returns an exit status of zero.
+
+Example:
+```
+$ echo "error! && echo 'ALXSWE'" | ./simple_shell
+./shellby: 1: error!: not found
+$ echo "echo 'my name is' && echo 'ALXSWE'" | ./simple_shell
+'my name is'
+'ALXSWE'
+```
+
+#### || - OR logical operator
+`command1 || command2`: `command2` is executed if, and only if, `command1` returns a non-zero exit status.
+
+Example:
+```
+$ echo "error! || echo 'wait for it'" | ./simple_shell
+./simple_shell: 1: error!: not found
+'wait for it'
+```
+
+The operators `&&` and `||` have equal precedence, followed by `;`.
+
+### Builtin Commands
+
+#### cd
+  * Usage: `cd [DIRECTORY]`
+  * Changes the current directory of the process to `DIRECTORY`.
+  * If no argument is given, the command is interpreted as `cd $HOME`.
+  * If the argument `-` is given, the command is interpreted as `cd $OLDPWD` and the pathname of the new working directory is printed to standad output.
+  * If the argument, `--` is given, the command is interpreted as `cd $OLDPWD` but the pathname of the new working directory is not printed.
+  * The environment variables `PWD` and `OLDPWD` are updated after a change of directory.
+
+Example:
+```
+$ ./simple_shell
+^-^ pwd
+/home/vagrant/ALXSWE/simple_shell
+$ cd ../
+^-^ pwd
+/home/vagrant/ALXSWE
+^-^ cd -
+^-^ pwd
+/home/vagrant/ALXSWE/simple_shell
+```
+
+#### exit
+  * Usage: `exit [STATUS]`
+  * Exits the shell.
+  * The `STATUS` argument is the integer used to exit the shell.
+  * If no argument is given, the command is interpreted as `exit 0`.
+
+Example:
+```
+$ ./simple_shell
+$ exit
+```
+
+#### env
+  * Usage: `env`
+  * Prints the current environment.
+
+Example:
+```
+$ ./simple_shell
+$ env
+NVM_DIR=/home/vagrant/.nvm
+...
+```
+
+#### setenv
+  * Usage: `setenv [VARIABLE] [VALUE]`
+  * Initializes a new environment variable, or modifies an existing one.
+  * Upon failure, prints a message to `stderr`.
+
+Example:
+```
+$ ./simple_shell
+$ setenv NAME ALXSWE
+$ echo $NAME
+ALXSWE
+```
+
+#### unsetenv
+  * Usage: `unsetenv [VARIABLE]`
+  * Removes an environmental variable.
+  * Upon failure, prints a message to `stderr`.
+
+Example:
+```
+$ ./simple_shell
+$ setenv NAME ALXSWE
+$ unsetenv NAME
+$ echo $NAME
+
+$
+```
+
+## Authors & Copyrights
+
+* Adule Solomon O <[solkiona@gmail.com](https://github.com/solkiona)>
+* JUDE MAUNDU
+
+## More information
+
+**simple_shell** is a simple shell unix command interpreter that is part of the ALXSWE low level programming module at ALXSWE School and is intended to emulate the basics **sh** shell. All the information given in this README is based on the **simple_shell** and **bash** man (1) pages.
